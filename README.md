@@ -1,2 +1,1 @@
-# Time Signatures
- Made by KingBranBran
+#[ModKit Wiki](../../wiki)
