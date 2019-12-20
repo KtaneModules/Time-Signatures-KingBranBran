@@ -150,7 +150,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4872692461738716, guid: a80e785bcb302a54e952a91e4f0858b3, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070172066205602, guid: a80e785bcb302a54e952a91e4f0858b3, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.075167
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070172066205602, guid: a80e785bcb302a54e952a91e4f0858b3, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.075167
+      objectReference: {fileID: 0}
+    - target: {fileID: 1662951880966088, guid: a80e785bcb302a54e952a91e4f0858b3, type: 2}
+      propertyPath: m_Name
+      value: TimeSigModule
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a80e785bcb302a54e952a91e4f0858b3, type: 2}
@@ -234,7 +246,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1267243846
 GameObject:
@@ -299,7 +311,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1001 &1356675618
 Prefab:
@@ -338,7 +350,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 439642, guid: 8814ea52310d2614a9feda02ec355ae4, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8814ea52310d2614a9feda02ec355ae4, type: 2}
