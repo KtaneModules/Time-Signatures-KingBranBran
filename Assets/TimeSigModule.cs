@@ -29,6 +29,7 @@ public class TimeSigModule : MonoBehaviour {
 	private int _moduleId;
 
 	private bool moduleSolved = false;
+	private bool solving = false;
 
 	private Coroutine buttonHold;
 	private bool holding = false;
@@ -58,6 +59,7 @@ public class TimeSigModule : MonoBehaviour {
 	void ButtonPressed(int buttonNum)
 	{
 		moduleAudio.PlaySoundAtTransform("Click", module.transform);
+		ButtonMove(buttonNum, "down");
 		if (moduleSolved) return;
 
 		if (buttonHold != null)
@@ -71,8 +73,9 @@ public class TimeSigModule : MonoBehaviour {
 	}
 
 	void ButtonDepressed(int buttonNum)
-	{
+	{		
 		moduleAudio.PlaySoundAtTransform("ClickOff", module.transform);
+		ButtonMove(buttonNum, "up");
 		if (moduleSolved ) return;
 
 		StopCoroutine(buttonHold);
@@ -102,6 +105,11 @@ public class TimeSigModule : MonoBehaviour {
 			}
 			UpdateText();
 		}	
+	}
+
+	void TwitchHandleForcedSolve()
+	{
+		StartCoroutine(ModuleSolve());
 	}
 
 	IEnumerator HoldChecker()
@@ -144,6 +152,7 @@ public class TimeSigModule : MonoBehaviour {
 			amountCorrect++;
 			UpdateText();
 			StartCoroutine(PlayCorrectSound());
+			DebugLog("You submitted [{0} {1}]. That's correct!", currentState[0], currentState[1]);
 		}
 		else
 		{
@@ -151,6 +160,13 @@ public class TimeSigModule : MonoBehaviour {
 			StopPlaying();
 			GenerateColor();
 			UpdateText();
+			amountCorrect = 0;
+			DebugLog("You submitted [{0} {1}]. Thats wrong...", currentState[0], currentState[1]);		
+
+			if (randomSequence[amountCorrect] == null)
+			{
+				DebugLog("...you haven't generated a sequence yet!");
+			}
 		}
 		if (amountCorrect == 5) StartCoroutine(ModuleSolve());
 	}
@@ -170,10 +186,26 @@ public class TimeSigModule : MonoBehaviour {
 		}
 	}
 
+	void ButtonMove(int buttonNum, string direction)
+	{
+		switch (direction)
+		{
+			case "down":
+				buttonBack.transform.localEulerAngles = buttonNum == 0 ? new Vector3(92f, 0f, -180f) : new Vector3(88f, 0f, -180f);
+				buttonBack.transform.localPosition = new Vector3(0f, .004f, 0f);
+				break;
+			case "up":
+				buttonBack.transform.localEulerAngles = new Vector3(90f, 0f, -180f);
+				buttonBack.transform.localPosition = new Vector3(0f, .007f, 0f);
+				break;
+		}
+	}
+
 	IEnumerator ModuleSolve()
 	{
 		StopPlaying();
 		moduleSolved = true;
+		solving = true;
 		topButtonText.color = new Color(0, 0, 0);
 		bottomButtonText.color = new Color(0, 0, 0);
 		UpdateDisplayTo("  ");
@@ -192,8 +224,12 @@ public class TimeSigModule : MonoBehaviour {
 			}
 		}		
 		moduleAudio.PlaySoundAtTransform("EmphasizedTap", module.transform);
+		topButtonText.color = new Color(.78f, 0, 0);
+		bottomButtonText.color = new Color(.78f, 0, 0);
 		yield return new WaitForSeconds(.2f);
 		moduleAudio.PlaySoundAtTransform("EmphasizedTap", module.transform);
+		topButtonText.color = new Color(0, 0, 0);
+		bottomButtonText.color = new Color(0, 0, 0);
 		yield return new WaitForSeconds(.2f);
 		moduleAudio.PlaySoundAtTransform("HighTap", module.transform);
 		UpdateDisplayTo("TS");
@@ -216,6 +252,7 @@ public class TimeSigModule : MonoBehaviour {
 		bottomButtonText.color = new Color(0, .58f, 0);
 		UpdateDisplayTo("✓✓");
 		module.HandlePass();
+		DebugLog("Module solved!");
 	}
 
 	IEnumerator PlayRandomSequence()
@@ -224,7 +261,7 @@ public class TimeSigModule : MonoBehaviour {
 		for (int i = 0; i < randomSequence.Length; i++)
 			randomSequence[i] = topButtonStates[Random.Range(0, 9)].ToString() + bottomButtonStates[Random.Range(0, 4)].ToString();
 
-		DebugLog("The sequence is: " + randomSequence[0] + ", " + randomSequence[1] + ", " + randomSequence[2] + ", " + randomSequence[3] + ", " + randomSequence[4]);
+		DebugLog("The new sequence is now [{0} {1}], [{2} {3}], [{4} {5}], [{6} {7}], [{8} {9}].", randomSequence[0][0], randomSequence[0][1], randomSequence[1][0], randomSequence[1][1], randomSequence[2][0], randomSequence[2][1], randomSequence[3][0], randomSequence[3][1], randomSequence[4][0], randomSequence[4][1]);
 
 		// Play the sequence
 		for (int i = 0; i < randomSequence.Length; i++)
@@ -282,5 +319,64 @@ public class TimeSigModule : MonoBehaviour {
 	{
 		var logData = string.Format(log, args);
 		Debug.LogFormat("[Time Signatures #{0}] {1}", _moduleId, logData);
+	}
+
+	string TwitchHelpMessage = "Use '!{0} t1 h b2 c' to hit the top button once, hold the button, hit the bottom button twice, and cycle the top button.";
+
+	int TwitchModuleScore = 12;
+
+	IEnumerator ProcessTwitchCommand(string command)
+	{
+		var parts = command.ToLowerInvariant().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+		if (parts.All(x => x.Length == 2 && "tb".Contains(x[0]) && "123456789".Contains(x[1]) || x.Length == 1 && "hc".Contains(x))) {
+			yield return null;
+
+			for (int i = 0; i < parts.Length; i++)
+			{
+				var part = parts[i];
+				
+				if (part.Length == 2)
+				{
+					var buttonNumToPress = part[0] == 't' ? 0 : 1;
+					var numPresses = int.Parse(part[1].ToString());
+
+					for (int j = 0; j < numPresses; j++)
+					{
+						yield return "trycancel";
+						ButtonPressed(buttonNumToPress);
+						yield return new WaitForSeconds(.1f);
+						ButtonDepressed(buttonNumToPress);
+						yield return new WaitForSeconds(.1f);
+					}
+				}
+				else
+				{
+					if (part == "c")
+					{
+						for (int j = 0; j < 9; j++)
+						{
+							yield return "trycancel";
+							ButtonPressed(1);
+							yield return new WaitForSeconds(.1f);
+							ButtonDepressed(1);
+							yield return new WaitForSeconds(.4f);
+						}
+					} 
+					else
+					{
+						yield return "trycancel";
+						ButtonPressed(0);
+						yield return new WaitForSeconds(1f);
+						ButtonDepressed(0);
+						yield return new WaitForSeconds(.1f);
+					}
+						
+				}
+			}
+
+			if (solving)
+				yield return "solve";
+		}
 	}
 }
