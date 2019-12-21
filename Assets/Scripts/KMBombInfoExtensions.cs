@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
 
 namespace KModkit
 {
@@ -277,7 +277,7 @@ namespace KModkit
 
         public static int GetBatteryCount(this KMBombInfo bombInfo, Battery batteryType)
         {
-            return GetBatteryCount(bombInfo, (int) batteryType);
+            return GetBatteryCount(bombInfo, (int)batteryType);
         }
 
         public static int GetBatteryCount(this KMBombInfo bombInfo, int batteryType)
@@ -293,7 +293,7 @@ namespace KModkit
 
         public static int GetBatteryHolderCount(this KMBombInfo bombInfo, Battery batteryType)
         {
-            return GetBatteryHolderCount(bombInfo, (int) batteryType);
+            return GetBatteryHolderCount(bombInfo, (int)batteryType);
         }
 
         public static int GetBatteryHolderCount(this KMBombInfo bombInfo, int batteryType)

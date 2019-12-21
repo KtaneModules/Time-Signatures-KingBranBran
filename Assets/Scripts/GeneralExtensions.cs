@@ -1,10 +1,10 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using JetBrains.Annotations;
 using UnityEngine;
 // ReSharper disable UnusedMember.Global
 
@@ -34,7 +34,7 @@ public static class GeneralExtensions
         {
             foreach (int timeLength in timeLengths)
             {
-                int time = (int) (seconds / timeLength);
+                int time = (int)(seconds / timeLength);
                 if (time > 0 || timeParts.Count > 0)
                 {
                     timeParts.Add(time);
@@ -44,7 +44,7 @@ public static class GeneralExtensions
         }
 
         string formatedTime = string.Join(":", timeParts.Select((time, i) => timeParts.Count > 2 && i == 0 ? time.ToString() : time.ToString("00")).ToArray());
-        if (addMilliseconds) formatedTime += ((int) (seconds * 100)).ToString(@"\.00");
+        if (addMilliseconds) formatedTime += ((int)(seconds * 100)).ToString(@"\.00");
 
         return formatedTime;
     }
@@ -111,7 +111,7 @@ public static class GeneralExtensions
     public static int? TryParseInt(this string number)
     {
         int i;
-        return int.TryParse(number, out i) ? (int?) i : null;
+        return int.TryParse(number, out i) ? (int?)i : null;
     }
 
     public static bool ContainsIgnoreCase(this string str, string value)

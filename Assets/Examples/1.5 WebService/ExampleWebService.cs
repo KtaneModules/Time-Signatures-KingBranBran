@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading;
-using System;
+using UnityEngine;
 
 public class ExampleWebService : MonoBehaviour
 {
@@ -34,7 +34,7 @@ public class ExampleWebService : MonoBehaviour
 
     void Update()
     {
-        if(actions.Count > 0)
+        if (actions.Count > 0)
         {
             Action action = actions.Dequeue();
             action();
@@ -104,14 +104,14 @@ public class ExampleWebService : MonoBehaviour
 
     protected string GetBombInfo()
     {
-        if(bombInfo.IsBombPresent())
+        if (bombInfo.IsBombPresent())
         {
-            if(bombState == "NA")
+            if (bombState == "NA")
             {
                 bombState = "Active";
             }
         }
-        else if(bombState == "Active")
+        else if (bombState == "Active")
         {
             bombState = "NA";
         }
@@ -121,7 +121,7 @@ public class ExampleWebService : MonoBehaviour
         modules = GetListAsHTML(bombInfo.GetModuleNames());
         solvableModules = GetListAsHTML(bombInfo.GetSolvableModuleNames());
         solvedModules = GetListAsHTML(bombInfo.GetSolvedModuleNames());
-        
+
         string responseString = string.Format(
             "<HTML><BODY>"
             + "<span>Time: {0}</span><br>"
@@ -149,7 +149,7 @@ public class ExampleWebService : MonoBehaviour
     {
         string listString = "";
 
-        foreach(string s in list)
+        foreach (string s in list)
         {
             listString += s + ", ";
         }

@@ -1,5 +1,4 @@
 ﻿using UnityEditor;
-using UnityEngine;
 
 [CustomEditor(typeof(KMBombModule))]
 public class KMBombModuleEditor : Editor
@@ -17,7 +16,7 @@ public class KMBombModuleEditor : Editor
             var moduleDisplayNameProperty = serializedObject.FindProperty("ModuleDisplayName");
             EditorGUILayout.PropertyField(moduleDisplayNameProperty);
             moduleDisplayNameProperty.stringValue = moduleDisplayNameProperty.stringValue.Trim();
-            
+
             EditorGUILayout.PropertyField(serializedObject.FindProperty("RequiresTimerVisibility"));
 
             serializedObject.ApplyModifiedProperties();

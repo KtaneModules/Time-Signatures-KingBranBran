@@ -1,7 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using UnityEngine;
 
 public class ExampleWidget : MonoBehaviour
 {
@@ -24,7 +23,7 @@ public class ExampleWidget : MonoBehaviour
 
     public string GetQueryResponse(string queryKey, string queryInfo)
     {
-        if(queryKey == WIDGET_QUERY_KEY)
+        if (queryKey == WIDGET_QUERY_KEY)
         {
             Dictionary<string, int> response = new Dictionary<string, int>();
             response.Add("numbertext", number);

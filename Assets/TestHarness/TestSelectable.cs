@@ -18,7 +18,7 @@ public class TestSelectable : MonoBehaviour
     {
         get
         {
-            if(_selectableArea == null)
+            if (_selectableArea == null)
             {
                 if (ModSelectable != null && ModSelectable.SelectableColliders.Length > 0)
                 {
@@ -26,7 +26,7 @@ public class TestSelectable : MonoBehaviour
                     _selectableArea.Selectable = this;
                     _selectableArea.transform.parent = transform;
 
-                    foreach(Collider collider in ModSelectable.SelectableColliders)
+                    foreach (Collider collider in ModSelectable.SelectableColliders)
                     {
                         TestSelectableArea colSelectableArea = collider.gameObject.AddComponent<TestSelectableArea>();
                         collider.isTrigger = false;
@@ -34,7 +34,7 @@ public class TestSelectable : MonoBehaviour
                         colSelectableArea.Selectable = this;
                         _selectableArea.Colliders.Add(collider);
                     }
-                    
+
                     _selectableArea.DeactivateSelectableArea();
                 }
 
@@ -49,13 +49,13 @@ public class TestSelectable : MonoBehaviour
                         meshRenderer = Highlight.gameObject.AddComponent<MeshRenderer>();
                         meshRenderer.enabled = false;
                     }
-                    
+
                     BoxCollider collider = Highlight.gameObject.AddComponent<BoxCollider>();
                     collider.isTrigger = true;
                     _selectableArea = Highlight.gameObject.AddComponent<TestSelectableArea>();
                     _selectableArea.Selectable = this;
                     _selectableArea.gameObject.layer = 11;
-                    _selectableArea.DeactivateSelectableArea();      
+                    _selectableArea.DeactivateSelectableArea();
                 }
             }
 
@@ -71,9 +71,9 @@ public class TestSelectable : MonoBehaviour
     int _childRowLength;
     public int ChildRowLength { get { return ModSelectable ? ModSelectable.ChildRowLength : _childRowLength; } set { _childRowLength = value; } }
     public bool AllowSelectionWrapX { get { return ModSelectable ? ModSelectable.AllowSelectionWrapX : false; } }
-    public bool AllowSelectionWrapY { get { return ModSelectable? ModSelectable.AllowSelectionWrapY : false; } }
+    public bool AllowSelectionWrapY { get { return ModSelectable ? ModSelectable.AllowSelectionWrapY : false; } }
     public int DefaultSelectableIndex { get { return ModSelectable ? ModSelectable.DefaultSelectableIndex : 0; } }
-    
+
     void Start()
     {
         ModSelectable = GetComponent<KMSelectable>();
@@ -100,7 +100,7 @@ public class TestSelectable : MonoBehaviour
     {
         bool shouldDrill = Children.Length > 0;
 
-        if(ModSelectable.OnInteract != null)
+        if (ModSelectable.OnInteract != null)
         {
             shouldDrill = ModSelectable.OnInteract();
         }

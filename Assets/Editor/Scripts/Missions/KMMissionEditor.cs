@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using System.Linq;
 
 /// <summary>
 /// Custom editor for KMMission, allowing you to easy create KMComponentPools and control the 
@@ -412,7 +412,8 @@ public class KMMissionEditor : Editor
         EditorGUILayout.PropertyField(modTypesElement, true);
 
         // Trim whitespace from mod types
-        for (int i = 0; i < modTypesElement.arraySize; i++) {
+        for (int i = 0; i < modTypesElement.arraySize; i++)
+        {
             modTypesElement.GetArrayElementAtIndex(i).stringValue = modTypesElement.GetArrayElementAtIndex(i).stringValue.Trim();
         }
 

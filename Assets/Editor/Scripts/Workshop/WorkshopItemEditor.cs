@@ -55,7 +55,7 @@ public class WorkshopItemEditor : Editor
 
         EditorGUILayout.BeginVertical(EditorStyles.helpBox, GUILayout.MaxWidth(128));
         EditorGUILayout.LabelField("Tags:");
-        for(int i = 0; i < tags.Length; i++)
+        for (int i = 0; i < tags.Length; i++)
         {
             bool hasTag = item.Tags.Contains(tags[i]);
 

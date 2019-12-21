@@ -1,7 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using UnityEngine;
 
 #if UNITY_EDITOR
 [UnityEditor.InitializeOnLoad]

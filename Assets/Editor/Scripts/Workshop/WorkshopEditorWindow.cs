@@ -1,9 +1,8 @@
-﻿using UnityEditor;
-using Steamworks;
-using UnityEngine;
+﻿using Steamworks;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
 
 public class WorkshopEditorWindow : EditorWindow
 {
@@ -83,7 +82,7 @@ public class WorkshopEditorWindow : EditorWindow
 
                 if (workshopItemEditor == null)
                 {
-                    workshopItemEditor = (WorkshopItemEditor) Editor.CreateEditor(currentWorkshopItem, typeof(WorkshopItemEditor));
+                    workshopItemEditor = (WorkshopItemEditor)Editor.CreateEditor(currentWorkshopItem, typeof(WorkshopItemEditor));
                 }
             }
 

@@ -1,6 +1,5 @@
 ﻿using Assets.Editor;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -97,7 +96,7 @@ public class KMMissionTableOfContentsEditor : Editor
         string[] guids = AssetDatabase.FindAssets("t:KMMission");
         List<KMMission> missions = new List<KMMission>();
 
-        foreach(string guid in guids)
+        foreach (string guid in guids)
         {
             KMMission mission = AssetDatabase.LoadAssetAtPath<KMMission>(AssetDatabase.GUIDToAssetPath(guid));
 

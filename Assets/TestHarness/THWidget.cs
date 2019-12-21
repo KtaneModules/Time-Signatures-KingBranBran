@@ -14,13 +14,13 @@
         public bool RJ45Port;
         public bool SerialPort;
         public bool StereoRCAPort;
-	    public bool ComponentVideoPort;
-	    public bool CompositeVideoPort;
-	    public bool HDMIPort;
-	    public bool VGAPort;
-	    public bool USBPort;
-	    public bool ACPort;
-	    public bool PCMCIAPort;
+        public bool ComponentVideoPort;
+        public bool CompositeVideoPort;
+        public bool HDMIPort;
+        public bool VGAPort;
+        public bool USBPort;
+        public bool ACPort;
+        public bool PCMCIAPort;
         public string[] CustomPorts;
 
         // Batteries
@@ -44,12 +44,13 @@
         BATTERY,
         PORT_PLATE,
         INDICATOR,
-		TWOFACTOR,
+        TWOFACTOR,
         RANDOM,
         CUSTOM
     }
 
-    public enum PortPlateType {
+    public enum PortPlateType
+    {
         CUSTOM,
         RANDOM_NORMAL,
         RANDOM_ANY

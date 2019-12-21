@@ -1,9 +1,9 @@
+using EdgeworkConfigurator;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using EdgeworkConfigurator;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -81,18 +81,18 @@ public class FakeBombInfo : MonoBehaviour
         if (timeLeft < 60)
         {
             if (timeLeft < 10) time += "0";
-            time += (int) timeLeft;
+            time += (int)timeLeft;
             time += ".";
-            int s = ((int) (timeLeft * 100)) % 100;
+            int s = ((int)(timeLeft * 100)) % 100;
             if (s < 10) time += "0";
             time += s;
         }
         else
         {
             if (timeLeft < 600) time += "0";
-            time += (int) timeLeft / 60;
+            time += (int)timeLeft / 60;
             time += ":";
-            int s = (int) timeLeft % 60;
+            int s = (int)timeLeft % 60;
             if (s < 10) time += "0";
             time += s;
         }
@@ -247,7 +247,7 @@ public class FakeBombInfo : MonoBehaviour
         List<THWidget> RandomWidgets = new List<THWidget>();
 
         widgets.Add(SerialNumber.CreateComponent(SerialNumberWidget, config));
-        serial = ((SerialNumber) widgets[0]).serial;
+        serial = ((SerialNumber)widgets[0]).serial;
 
         foreach (KMWidget widget in FindObjectsOfType<KMWidget>())
             widgets.Add(widget.gameObject.AddComponent<ModWidget>());
@@ -292,7 +292,7 @@ public class FakeBombInfo : MonoBehaviour
                                 }
                                 else
                                 {
-                                    widgets.Add(BatteryWidget.CreateComponent(BatteryWidget, (int) widgetConfig.BatteryType));
+                                    widgets.Add(BatteryWidget.CreateComponent(BatteryWidget, (int)widgetConfig.BatteryType));
                                 }
                             }
                             break;
@@ -532,7 +532,7 @@ public class TestHarness : MonoBehaviour
 
     Component LogReplaceBombInfoError(FieldInfo f, MonoBehaviour s)
     {
-        Component component = (Component) f.GetValue(s);
+        Component component = (Component)f.GetValue(s);
         if (component == null)
         {
             var obj = s.transform;
@@ -552,7 +552,7 @@ public class TestHarness : MonoBehaviour
             {
                 if (f.FieldType == typeof(KMGameInfo))
                 {
-                    KMGameInfo component = (KMGameInfo) LogReplaceBombInfoError(f, s);
+                    KMGameInfo component = (KMGameInfo)LogReplaceBombInfoError(f, s);
                     if (component == null || !components.Add(component)) continue;
 
                     component.OnLightsChange += new KMGameInfo.KMLightsChangeDelegate(fakeInfo.OnLightsChange);
@@ -561,7 +561,7 @@ public class TestHarness : MonoBehaviour
                 }
                 if (f.FieldType == typeof(KMGameCommands))
                 {
-                    KMGameCommands component = (KMGameCommands) LogReplaceBombInfoError(f, s);
+                    KMGameCommands component = (KMGameCommands)LogReplaceBombInfoError(f, s);
                     if (component == null || !components.Add(component)) continue;
 
                     component.OnCauseStrike += new KMGameCommands.KMCauseStrikeDelegate(fakeInfo.HandleStrike);

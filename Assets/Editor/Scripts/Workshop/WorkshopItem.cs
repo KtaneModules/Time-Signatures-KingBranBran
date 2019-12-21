@@ -5,6 +5,6 @@ public class WorkshopItem : ScriptableObject
 {
     public ulong WorkshopPublishedFileID;
     public string Title;
-    
+
     public List<string> Tags;
 }

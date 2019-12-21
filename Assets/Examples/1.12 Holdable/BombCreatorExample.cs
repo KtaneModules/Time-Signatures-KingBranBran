@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class BombCreatorExample : MonoBehaviour
@@ -70,7 +68,7 @@ public class BombCreatorExample : MonoBehaviour
         info2.DisplayName = "Module 2";
         info1.ModuleId = "Module2";
         tempModules.Add(info2);
-        
+
         return tempModules;
     }
 
@@ -84,11 +82,11 @@ public class BombCreatorExample : MonoBehaviour
     void ChangeModuleDisableIndex(int diff)
     {
         moduleDisableIndex += diff;
-        if(moduleDisableIndex < 0)
+        if (moduleDisableIndex < 0)
         {
             moduleDisableIndex = availableModules.Count - 1;
         }
-        else if(moduleDisableIndex >= availableModules.Count)
+        else if (moduleDisableIndex >= availableModules.Count)
         {
             moduleDisableIndex = 0;
         }
@@ -98,11 +96,11 @@ public class BombCreatorExample : MonoBehaviour
 
     void UpdateModuleDisableDisplay()
     {
-        if(availableModules.Count > 0)
+        if (availableModules.Count > 0)
         {
             KMGameInfo.KMModuleInfo moduleInfo = availableModules[moduleDisableIndex];
             ModuleDisableText.text = moduleInfo.DisplayName;
-            if(disabledModuleIds.Contains(moduleInfo.ModuleId))
+            if (disabledModuleIds.Contains(moduleInfo.ModuleId))
             {
                 ModuleDisableText.color = Color.red;
             }
@@ -115,10 +113,10 @@ public class BombCreatorExample : MonoBehaviour
 
     void ModuleDisableButtonPressed()
     {
-        if(availableModules.Count > 0)
+        if (availableModules.Count > 0)
         {
             KMGameInfo.KMModuleInfo moduleInfo = availableModules[moduleDisableIndex];
-            if(disabledModuleIds.Contains(moduleInfo.ModuleId))
+            if (disabledModuleIds.Contains(moduleInfo.ModuleId))
             {
                 disabledModuleIds.Remove(moduleInfo.ModuleId);
             }
@@ -136,7 +134,7 @@ public class BombCreatorExample : MonoBehaviour
         KMGeneratorSetting generatorSettings = new KMGeneratorSetting();
         generatorSettings.NumStrikes = 3;
         generatorSettings.TimeLimit = time;
-        
+
         generatorSettings.ComponentPools = BuildComponentPools();
         generatorSettings.OptionalWidgetCount = widgets;
 
@@ -162,10 +160,10 @@ public class BombCreatorExample : MonoBehaviour
 
         foreach (KMGameInfo.KMModuleInfo moduleInfo in availableModules)
         {
-            if(!disabledModuleIds.Contains(moduleInfo.ModuleId))
+            if (!disabledModuleIds.Contains(moduleInfo.ModuleId))
             {
                 KMComponentPool pool = moduleInfo.IsNeedy ? needyPool : solvablePool;
-                if(moduleInfo.IsMod)
+                if (moduleInfo.IsMod)
                 {
                     pool.ModTypes.Add(moduleInfo.ModuleId);
                 }
@@ -173,7 +171,7 @@ public class BombCreatorExample : MonoBehaviour
                 {
                     pool.ComponentTypes.Add(moduleInfo.ModuleType);
                 }
-                
+
             }
         }
         solvablePool.Count = needyPool.ComponentTypes.Count + needyPool.ModTypes.Count > 0 ? modules - 1 : modules;

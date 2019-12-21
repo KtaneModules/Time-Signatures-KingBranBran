@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using UnityEngine;
 
 public class ExampleModule2 : MonoBehaviour
 {
@@ -63,7 +63,7 @@ public class ExampleModule2 : MonoBehaviour
 
     void OnActivate()
     {
-        foreach (string query in new List<string> { KMBombInfo.QUERYKEY_GET_BATTERIES, KMBombInfo.QUERYKEY_GET_INDICATOR, KMBombInfo.QUERYKEY_GET_PORTS, KMBombInfo.QUERYKEY_GET_SERIAL_NUMBER, "example"})
+        foreach (string query in new List<string> { KMBombInfo.QUERYKEY_GET_BATTERIES, KMBombInfo.QUERYKEY_GET_INDICATOR, KMBombInfo.QUERYKEY_GET_PORTS, KMBombInfo.QUERYKEY_GET_SERIAL_NUMBER, "example" })
         {
             List<string> queryResponse = GetComponent<KMBombInfo>().QueryWidgets(query, null);
 
@@ -111,7 +111,7 @@ public class ExampleModule2 : MonoBehaviour
     void OnRelease()
     {
         Debug.Log("OnInteractEnded Released");
-        if(audioRef != null && audioRef.StopSound != null)
+        if (audioRef != null && audioRef.StopSound != null)
         {
             audioRef.StopSound();
         }

@@ -22,22 +22,22 @@ public class KMRuleSeedable : MonoBehaviour
         if (!ruleSeedModifierAPI.ContainsKey("RuleSeed"))
             return new MonoRandom(1);
 
-		//Add the module to the list of supported modules if possible.
-	    if (ruleSeedModifierAPI.ContainsKey("AddSupportedModule"))
-	    {
-		    string key;
-		    KMBombModule bombModule = GetComponent<KMBombModule>();
-		    KMNeedyModule needyModule = GetComponent<KMNeedyModule>();
+        //Add the module to the list of supported modules if possible.
+        if (ruleSeedModifierAPI.ContainsKey("AddSupportedModule"))
+        {
+            string key;
+            KMBombModule bombModule = GetComponent<KMBombModule>();
+            KMNeedyModule needyModule = GetComponent<KMNeedyModule>();
 
-		    if (bombModule != null)
-			    key = bombModule.ModuleType;
-		    else if (needyModule != null)
-			    key = needyModule.ModuleType;
-		    else
-			    key = Regex.Replace(gameObject.name, @"\(Clone\)$", "");
+            if (bombModule != null)
+                key = bombModule.ModuleType;
+            else if (needyModule != null)
+                key = needyModule.ModuleType;
+            else
+                key = Regex.Replace(gameObject.name, @"\(Clone\)$", "");
 
-		    ruleSeedModifierAPI["AddSupportedModule"] = key;
-	    }
+            ruleSeedModifierAPI["AddSupportedModule"] = key;
+        }
 
         return new MonoRandom((ruleSeedModifierAPI["RuleSeed"] as int?) ?? 1);
     }
@@ -105,7 +105,7 @@ public class MonoRandom
             num += int.MaxValue;
         }
         _seedArray[_inext] = num;
-        return (double) num * 4.6566128752457969E-10;
+        return (double)num * 4.6566128752457969E-10;
     }
 
     public T ShuffleFisherYates<T>(T list) where T : IList
@@ -129,7 +129,7 @@ public class MonoRandom
     /// <filterpriority>1</filterpriority>
     public virtual int Next()
     {
-        return (int) (Sample() * 2147483647.0);
+        return (int)(Sample() * 2147483647.0);
     }
 
     /// <summary>Returns a nonnegative random number less than the specified maximum.</summary>
@@ -144,7 +144,7 @@ public class MonoRandom
         {
             throw new ArgumentOutOfRangeException("maxValue");
         }
-        return (int) (Sample() * (double) maxValue);
+        return (int)(Sample() * (double)maxValue);
     }
 
     /// <summary>Returns a random number within a specified range.</summary>
@@ -160,12 +160,12 @@ public class MonoRandom
         {
             throw new ArgumentOutOfRangeException("minValue");
         }
-        var num = (uint) (maxValue - minValue);
+        var num = (uint)(maxValue - minValue);
         if (num <= 1u)
         {
             return minValue;
         }
-        return (int) ((ulong) ((uint) (Sample() * num)) + (ulong) ((long) minValue));
+        return (int)((ulong)((uint)(Sample() * num)) + (ulong)((long)minValue));
     }
 
     /// <summary>Fills the elements of a specified array of bytes with random numbers.</summary>
@@ -181,7 +181,7 @@ public class MonoRandom
         }
         for (var i = 0; i < buffer.Length; i++)
         {
-            buffer[i] = (byte) (Sample() * 256.0);
+            buffer[i] = (byte)(Sample() * 256.0);
         }
     }
 

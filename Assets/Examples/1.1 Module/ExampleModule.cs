@@ -18,7 +18,7 @@ public class ExampleModule : MonoBehaviour
     {
         correctIndex = Random.Range(0, 4);
 
-        for(int i = 0; i < buttons.Length; i++)
+        for (int i = 0; i < buttons.Length; i++)
         {
             string label = i == correctIndex ? "O" : "X";
 

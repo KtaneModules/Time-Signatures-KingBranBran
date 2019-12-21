@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class TimeSigModule : MonoBehaviour {
+public class TimeSigModule : MonoBehaviour
+{
 	// Use this for initialization
 
 	public KMBombModule module;
@@ -36,7 +36,7 @@ public class TimeSigModule : MonoBehaviour {
 
 	private Coroutine playingSound;
 
-	private 
+	private
 
 	void Awake()
 	{
@@ -44,7 +44,8 @@ public class TimeSigModule : MonoBehaviour {
 		buttonBack.GetComponent<MeshRenderer>().material.color = Random.ColorHSV(0f, 1f, .6f, 1f, .4f, 1f);
 	}
 
-	void Start () {
+	void Start()
+	{
 		currentState = topButtonStates[Random.Range(0, 9)].ToString() + bottomButtonStates[Random.Range(0, 4)].ToString(); // Pick two random numbers
 		GenerateColor();
 		UpdateText();
@@ -73,10 +74,10 @@ public class TimeSigModule : MonoBehaviour {
 	}
 
 	void ButtonDepressed(int buttonNum)
-	{		
+	{
 		moduleAudio.PlaySoundAtTransform("ClickOff", module.transform);
 		ButtonMove(buttonNum, "up");
-		if (moduleSolved ) return;
+		if (moduleSolved) return;
 
 		StopCoroutine(buttonHold);
 
@@ -91,7 +92,9 @@ public class TimeSigModule : MonoBehaviour {
 				if (currentState[0].ToString() == redNumber)
 				{
 					StopPlaying();
-
+					GenerateColor();
+					UpdateText();
+					amountCorrect = 0;
 					playingSound = StartCoroutine(PlayRandomSequence());
 				}
 				else
@@ -104,7 +107,7 @@ public class TimeSigModule : MonoBehaviour {
 				CycleTopScreen();
 			}
 			UpdateText();
-		}	
+		}
 	}
 
 	void TwitchHandleForcedSolve()
@@ -139,7 +142,8 @@ public class TimeSigModule : MonoBehaviour {
 		topButtonText.color = topButtonText.text == redNumber ? new Color(.78f, 0, 0) : new Color(0, 0, 0);
 	}
 
-	void GenerateColor() {
+	void GenerateColor()
+	{
 		var redNum = topButtonStates[Random.Range(0, topButtonStates.Length)].ToString();
 		redNumber = redNum;
 		DebugLog("The red number is now {0}.", redNum);
@@ -161,7 +165,7 @@ public class TimeSigModule : MonoBehaviour {
 			GenerateColor();
 			UpdateText();
 			amountCorrect = 0;
-			DebugLog("You submitted [{0} {1}]. Thats wrong...", currentState[0], currentState[1]);		
+			DebugLog("You submitted [{0} {1}]. Thats wrong...", currentState[0], currentState[1]);
 
 			if (randomSequence[amountCorrect] == null)
 			{
@@ -217,12 +221,12 @@ public class TimeSigModule : MonoBehaviour {
 			UpdateDisplayTo(i.ToString() + "8");
 			yield return new WaitForSeconds(.2f);
 
-			for (int j = 0; j < i - 1; j++) 
+			for (int j = 0; j < i - 1; j++)
 			{
 				moduleAudio.PlaySoundAtTransform("Tap", module.transform);
 				yield return new WaitForSeconds(.2f);
 			}
-		}		
+		}
 		moduleAudio.PlaySoundAtTransform("EmphasizedTap", module.transform);
 		topButtonText.color = new Color(.78f, 0, 0);
 		bottomButtonText.color = new Color(.78f, 0, 0);
@@ -270,17 +274,17 @@ public class TimeSigModule : MonoBehaviour {
 			var bottomNum = int.Parse(randomSequence[i][1].ToString());
 			var bps = Random.Range(.25f, .375f);
 			var numOfTaps = topNum;
-			
+
 			switch (bottomNum)
 			{
 				case 1:
-					numOfTaps  *= 8;
+					numOfTaps *= 8;
 					break;
 				case 2:
-					numOfTaps  *= 4;
+					numOfTaps *= 4;
 					break;
 				case 4:
-					numOfTaps  *= 2;
+					numOfTaps *= 2;
 					break;
 				default:
 					break;
@@ -329,13 +333,14 @@ public class TimeSigModule : MonoBehaviour {
 	{
 		var parts = command.ToLowerInvariant().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-		if (parts.All(x => x.Length == 2 && "tb".Contains(x[0]) && "123456789".Contains(x[1]) || x.Length == 1 && "hc".Contains(x))) {
+		if (parts.All(x => x.Length == 2 && "tb".Contains(x[0]) && "123456789".Contains(x[1]) || x.Length == 1 && "hc".Contains(x)))
+		{
 			yield return null;
 
 			for (int i = 0; i < parts.Length; i++)
 			{
 				var part = parts[i];
-				
+
 				if (part.Length == 2)
 				{
 					var buttonNumToPress = part[0] == 't' ? 0 : 1;
@@ -362,7 +367,7 @@ public class TimeSigModule : MonoBehaviour {
 							ButtonDepressed(1);
 							yield return new WaitForSeconds(.4f);
 						}
-					} 
+					}
 					else
 					{
 						yield return "trycancel";
@@ -371,7 +376,7 @@ public class TimeSigModule : MonoBehaviour {
 						ButtonDepressed(0);
 						yield return new WaitForSeconds(.1f);
 					}
-						
+
 				}
 			}
 
