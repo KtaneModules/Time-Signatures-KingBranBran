@@ -14,8 +14,9 @@ MonoBehaviour:
   id: timeSignatures
   title: Time Signatures
   author: KingBranBran
-  description: Figure out the time signatures the module produces and submit them
-    back in!
+  description: "Figure out the time signatures the module produces and submit them
+    back in!\r\n\r\nHTML: https://ktane.timwi.de/HTML/Time%20Signatures.html\r\nPDF:
+    https://ktane.timwi.de/PDF/Time%20Signatures.pdf"
   version: 1.0
   outputFolder: C:\Users\kingb\Documents\KTANE\Modding\Projects\AssetBundles
   previewImage: {fileID: 2800000, guid: e593366d9dae8ab4b83103ecbf4f0d86, type: 3}
