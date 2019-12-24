@@ -769,7 +769,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ModuleType: timeSignatures
-  ModuleDisplayName: Time Signature
+  ModuleDisplayName: Time Signatures
   RequiresTimerVisibility: 0
 --- !u!114 &114446745627504472
 MonoBehaviour:

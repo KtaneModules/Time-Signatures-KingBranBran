@@ -295,10 +295,12 @@ public class TimeSigModule : MonoBehaviour
 				if (j == 0)
 				{
 					moduleAudio.PlaySoundAtTransform("HighTap", module.transform);
+					moduleAudio.PlaySoundAtTransform("hatquiter", module.transform);
 				}
 				else if (bottomNum == 8 || bottomNum == 4 && j % 2 == 0 || bottomNum == 2 && j % 4 == 0 || bottomNum == 1 && j % 8 == 0)
 				{
 					moduleAudio.PlaySoundAtTransform("EmphasizedTap", module.transform);
+					moduleAudio.PlaySoundAtTransform("hatquiter", module.transform);
 				}
 				else
 				{
